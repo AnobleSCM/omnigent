@@ -1,0 +1,37 @@
+tests/inner/test_codex_executor.py
+  s_2269cf5d970461::t_2aead3bdf15441 3234-3287
+  s_2269cf5d970461::t_bc56802a22522d 22,27
+  s_2269cf5d970461::t_da5d0cee46118e 3288-3291
+omnigent/runtime/workflow.py
+  s_2269cf5d970461::t_20e2cdb67d8285 1290-1294
+  s_2269cf5d970461::t_8e138bc20e5723 1371-1390
+tests/runtime/harnesses/test_scaffold.py
+  s_2269cf5d970461::t_f30b2680b07f0c 1783-1851
+tests/runtime/test_codex_spawn_env.py
+  s_2269cf5d970461::t_df4888bfb47b36 1-61
+tests/inner/test_codex_harness.py
+  s_2269cf5d970461::t_dc8983a6882c2c 16
+  s_2269cf5d970461::t_0c1c2d07735131 533-565
+omnigent/inner/codex_executor.py
+  s_2269cf5d970461::t_2dad9d8cd9603b 108-130,2158-2178,2460-2479
+omnigent/inner/codex_harness.py
+  s_2269cf5d970461::t_de8f98cbbd2572 318-346,362
+omnigent/runtime/harnesses/_scaffold.py
+  s_2269cf5d970461::t_e15c5d2dea3a78 1510-1528,1532
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "08ecc8919b9cc945ff3f6669995c7e9d6913e35c",
+  "prompts": {},
+  "sessions": {
+    "s_2269cf5d970461": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e9bff374-62c4-4311-b89d-7f09a882ced0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
