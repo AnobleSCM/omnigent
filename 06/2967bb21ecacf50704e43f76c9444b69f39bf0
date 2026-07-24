@@ -1,0 +1,22 @@
+omnigent/runtime/workflow.py
+  s_2269cf5d970461::t_c855a68dabeeda 1906-1925
+  s_2269cf5d970461::t_3ace767053bd55 1844-1848
+tests/runtime/test_kimi_spawn_env.py
+  s_2269cf5d970461::t_84e439f8a8c134 1-77
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "062967bb21ecacf50704e43f76c9444b69f39bf0",
+  "prompts": {},
+  "sessions": {
+    "s_2269cf5d970461": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e9bff374-62c4-4311-b89d-7f09a882ced0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
