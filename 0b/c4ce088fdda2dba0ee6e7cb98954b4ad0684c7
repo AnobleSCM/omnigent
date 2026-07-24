@@ -1,0 +1,31 @@
+tests/runtime/test_pi_spawn_env.py
+  s_2269cf5d970461::t_1a19b9eb4920b4 269-294
+  s_2269cf5d970461::t_345b22c78cc7f2 218-268
+  s_2269cf5d970461::t_bd0a92fb6c6ad0 35-41,50-56,64-67
+omnigent/inner/pi_executor.py
+  s_2269cf5d970461::t_222ecb34c85dc1 1111,1115-1146,1610,1665-1671,1683-1686,1898-1914,1965,1986-1991,2083,2094,2104,2133,2156,2159
+omnigent/inner/pi_harness.py
+  s_2269cf5d970461::t_09589eb6b311d1 64-68,104,239
+tests/inner/test_pi_executor.py
+  s_2269cf5d970461::t_3de7dfcd6d6bae 3977-4052
+  s_2269cf5d970461::t_c836b9684b7055 33
+omnigent/runtime/workflow.py
+  s_2269cf5d970461::t_0a2a44aa393de5 1437-1443,1446,1448-1450
+  s_2269cf5d970461::t_83fd3a7a9608fa 1421-1436,1444-1445,1447,1451-1452
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "0bc4ce088fdda2dba0ee6e7cb98954b4ad0684c7",
+  "prompts": {},
+  "sessions": {
+    "s_2269cf5d970461": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e9bff374-62c4-4311-b89d-7f09a882ced0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    }
+  }
+}
