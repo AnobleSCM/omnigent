@@ -1,0 +1,38 @@
+omnigent/inner/kimi_executor.py
+  s_d92c99e501a827::t_62a2e34f43f649 37-40
+  s_d92c99e501a827::t_bcc0e4c769c79c 105-116
+  s_d92c99e501a827::t_451af17b9afca8 487-501
+  s_d92c99e501a827::t_a9f72b9b56a58c 125-132,140-145,150-152,156-178
+  s_0948dbc5f01748::t_2625045d45bec7 179-180
+tests/inner/test_kimi_harness.py
+  s_d92c99e501a827::t_82b45b92f5664e 13
+  s_d92c99e501a827::t_bc56aa3fd0b6ae 209-219,222,239-292
+  s_d92c99e501a827::t_2df9428423be50 30
+  s_d92c99e501a827::t_b763210b0c3dca 293-294,887-910
+omnigent/inner/kimi_harness.py
+  s_d92c99e501a827::t_1660e34789a926 21-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "e53db427a508992362b5ab7adb9624f1ac38cd48",
+  "prompts": {},
+  "sessions": {
+    "s_0948dbc5f01748": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "79aa4404-b693-45cf-a30b-43bd3cf7fcb6",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    },
+    "s_d92c99e501a827": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "119618ab-4da9-43dd-aebc-5be482c9a046",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
