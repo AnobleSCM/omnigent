@@ -1,0 +1,41 @@
+tests/inner/test_codex_harness.py
+  s_2269cf5d970461::t_dc8983a6882c2c 16
+  s_2269cf5d970461::t_0c1c2d07735131 533-565
+tests/runtime/test_codex_spawn_env.py
+  s_2269cf5d970461::t_df4888bfb47b36 1-61
+omnigent/runtime/harnesses/_scaffold.py
+  s_2269cf5d970461::t_e15c5d2dea3a78 1510-1528,1532
+tests/runtime/harnesses/test_scaffold.py
+  s_2269cf5d970461::t_f30b2680b07f0c 1783-1851
+omnigent/inner/codex_harness.py
+  s_2269cf5d970461::t_de8f98cbbd2572 318-346,362
+tests/inner/test_codex_executor.py
+  s_2269cf5d970461::t_bb06a6a9c94c6e 7,9
+  s_2269cf5d970461::t_c2ad87780bfa5c 3294-3336
+  s_2269cf5d970461::t_da5d0cee46118e 3290-3293
+  s_2269cf5d970461::t_bc56802a22522d 24,29
+  s_2269cf5d970461::t_2aead3bdf15441 3236-3289
+omnigent/runtime/workflow.py
+  s_2269cf5d970461::t_20e2cdb67d8285 1290-1294
+  s_2269cf5d970461::t_8e138bc20e5723 1371-1390
+omnigent/inner/codex_executor.py
+  s_2269cf5d970461::t_cff5a5b7713641 2181-2183
+  s_2269cf5d970461::t_2dad9d8cd9603b 108-130,2165-2180,2184-2188,2470-2489
+  s_2269cf5d970461::t_de765c8d7b1069 2149-2155
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "3712a25d1f3fb2aceba830fa7124b651d1fe1411",
+  "prompts": {},
+  "sessions": {
+    "s_2269cf5d970461": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e9bff374-62c4-4311-b89d-7f09a882ced0",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": null
+    }
+  }
+}
