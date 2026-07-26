@@ -1,0 +1,19 @@
+tests/host/test_local_server.py
+  s_93648ac671dd07::t_ea3fa16e745996 733-738
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "d680e5c3f8bcde8d8dba6da5080fe84448780144",
+  "prompts": {},
+  "sessions": {
+    "s_93648ac671dd07": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b52ad1a0-d9cb-4984-9617-ce3ddbbc4bc0",
+        "model": "claude-opus-5"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
