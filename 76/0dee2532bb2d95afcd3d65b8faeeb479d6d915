@@ -1,0 +1,19 @@
+omnigent/model_catalog.py
+  s_e1da550b4736f6::t_799e60339442b1 199
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "760dee2532bb2d95afcd3d65b8faeeb479d6d915",
+  "prompts": {},
+  "sessions": {
+    "s_e1da550b4736f6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "481d19d7-79c3-449c-b85b-c3de3f9ec737",
+        "model": "claude-opus-5"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
