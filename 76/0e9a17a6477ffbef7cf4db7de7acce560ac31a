@@ -1,0 +1,39 @@
+omnigent/runner/tool_dispatch.py
+  s_8260109ac9955d::t_c60665717fddd3 6590-6595
+tests/runner/test_skill_tool_dispatch.py
+  s_8260109ac9955d::t_c60665717fddd3 13,48-56,60
+  s_8260109ac9955d::t_775f3911243bb9 1-12,14-47,57-59
+tests/inner/test_codex_executor.py
+  s_8260109ac9955d::t_eb24c31160be01 1668
+  s_8260109ac9955d::t_b6500b02f17156 1632-1650,1653,1666
+  s_8260109ac9955d::t_761494a20936b1 1611
+  s_8260109ac9955d::t_c60665717fddd3 1541
+  s_8260109ac9955d::t_775f3911243bb9 1546-1548,1563-1572,1612-1615,1619,1654-1665,1669-1673
+  s_0b0a895d3e3cbd::t_1ba7a39f25600e 1667
+omnigent/inner/codex_executor.py
+  s_8260109ac9955d::t_c60665717fddd3 1487-1489,1499-1501,1507,1511,1529,1536,1545,1677-1678,1833,1857,1883,1888,1918-1919,1923,1928-1936
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "760e9a17a6477ffbef7cf4db7de7acce560ac31a",
+  "prompts": {},
+  "sessions": {
+    "s_0b0a895d3e3cbd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9981959a-a318-4eca-a177-eb455a6f8fcb",
+        "model": "claude-opus-5"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    },
+    "s_8260109ac9955d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019f9ef7-ea34-7033-8070-592a03895594",
+        "model": "gpt-5.6-terra"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
