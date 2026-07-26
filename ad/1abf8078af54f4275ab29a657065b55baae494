@@ -1,0 +1,43 @@
+omnigent/model_catalog.py
+  s_e1da550b4736f6::t_a0d43cc53a5b55 198-219,231
+  s_e1da550b4736f6::t_104e45640c4d57 444-452,457
+  s_e1da550b4736f6::t_4a4d703bf911cc 728-738
+  s_e1da550b4736f6::t_2cd3a272bb3aa1 927-928
+  s_e1da550b4736f6::t_b20cfa1bc704d6 995-1021
+  s_e1da550b4736f6::t_7f994fdc18f11f 153-197,220-230,232
+  s_e1da550b4736f6::t_c4a9cc5cc79a97 699-700,702
+  s_e1da550b4736f6::t_14d9000fbf942b 461
+  s_e1da550b4736f6::t_8e14e4d449927f 293-295,306
+  s_e1da550b4736f6::t_fd3416b6cefdd7 431-433,436-437
+  s_e1da550b4736f6::t_0f9f4b4da57eab 464
+  s_e1da550b4736f6::t_c82ebd7138864d 64-69
+  s_e1da550b4736f6::t_df27838d11c3b7 465,469-470,472,480-529
+  s_e1da550b4736f6::t_6e47f888474ff9 530-531
+tests/test_model_catalog.py
+  s_e1da550b4736f6::t_4a9b112d87c255 1257,1308-1330,1334
+  s_f6c07925419ae4::t_e398f9d06c9f29 1203-1256,1258-1307,1331-1333,1335-1364
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "ad1abf8078af54f4275ab29a657065b55baae494",
+  "prompts": {},
+  "sessions": {
+    "s_e1da550b4736f6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "481d19d7-79c3-449c-b85b-c3de3f9ec737",
+        "model": "claude-opus-5"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    },
+    "s_f6c07925419ae4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9b7bfbca-ff63-4876-8543-4b13b9e3cba8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
