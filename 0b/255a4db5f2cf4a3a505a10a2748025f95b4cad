@@ -1,0 +1,62 @@
+omnigent/runner/native/orchestration.py
+  s_56ce6ee05932e7::t_bc9a68d9123155 3251-3253
+  s_56ce6ee05932e7::t_3fa743bfc445fc 3189,3192-3196,3220,3269-3276,3321-3322
+omnigent/kimi_native_bridge.py
+  s_56ce6ee05932e7::t_25082ae6ebb3ca 34-35
+tests/runner/test_kimi_native_terminal_launch.py
+  s_56ce6ee05932e7::t_7465c38ab6edba 1-124
+omnigent/runtime/harnesses/process_manager.py
+  s_56ce6ee05932e7::t_bc9a68d9123155 571-573,915-916,925
+  s_56ce6ee05932e7::t_43b87974bfcf88 574,908,912,917-924,926-958,1047,1059,1362
+  s_56ce6ee05932e7::t_4de2a6b24f6974 1302-1303,1310,1336-1339
+  s_56ce6ee05932e7::t_0bbc63501de64d 1363
+tests/server/integration/test_sessions_permission_request_hook.py
+  s_56ce6ee05932e7::t_80e126cfda295f 292,319-333,358-374
+tests/test_kimi_native_approval_bridge.py
+  s_56ce6ee05932e7::t_665b860f64385c 1-82,95-126,128-144,146-167
+  s_56ce6ee05932e7::t_722e8026d89dd7 83-94,145
+  s_56ce6ee05932e7::t_26eae39895ca62 127
+tests/runtime/harnesses/test_process_manager.py
+  s_56ce6ee05932e7::t_f5e8e50349fbd1 842-890
+tests/runner/test_app_sessions_native_events_lifecycle.py
+  s_56ce6ee05932e7::t_981ff4a08820f0 170-180,184
+  s_56ce6ee05932e7::t_6df876d79bc348 113-169,181-183,185-186
+  s_56ce6ee05932e7::t_8b2f5d8935a7d9 112
+omnigent/kimi_native_approval_bridge.py
+  s_56ce6ee05932e7::t_e6deb6bfef7944 59-67,230-232,321
+  s_56ce6ee05932e7::t_1690870e3781ab 329-331
+  s_56ce6ee05932e7::t_4e6052f2059c6d 11,38-47,74,111,113,189,258-261,270,272,275,295-297,299
+  s_56ce6ee05932e7::t_26eae39895ca62 1,107,190,211,262,283,318
+  s_56ce6ee05932e7::t_6bd14ce6727f67 21,117,120,130,149,327
+  s_56ce6ee05932e7::t_c9ed5da9ff57fa 13,20,22,48-58,184,226,229,233-241,244-247,253,256,268,280,287,290-294,302,309,317,326,338,349,352-353
+  s_56ce6ee05932e7::t_b72acd3584fd08 2-10,12,14-19,23-37,68-73,75-106,108-110,112,114-116,118-119,121-129,131-148,150-183,185-188,191-210,212-225,227-228,242-243,248-252,254-255,257,263-267,269,271,273-274,276-279,281-282,284-286,288-289,298,300-301,303-308,310-316,319-320,322-325,328,332-337,339-348,350-351,354-357
+omnigent/server/routes/sessions/routes_hooks.py
+  s_56ce6ee05932e7::t_bd2502c609014c 1117-1127,1129-1150
+omnigent/kimi_native_credentials.py
+  s_56ce6ee05932e7::t_26eae39895ca62 1,26-27,36,209
+  s_56ce6ee05932e7::t_25082ae6ebb3ca 3-6,8-10,211-213,219-220
+omnigent/kimi_native_forwarder.py
+  s_56ce6ee05932e7::t_25082ae6ebb3ca 10-13,24-25
+omnigent/runner/app.py
+  s_56ce6ee05932e7::t_a7bd1e051ed2af 6812-6813,6824-6862
+  s_56ce6ee05932e7::t_bc368c3d589fe6 6814-6823
+  s_56ce6ee05932e7::t_1b1942ca5e48a2 6863-6864
+tests/test_kimi_native_forwarder.py
+  s_56ce6ee05932e7::t_90af4bbef4304e 238,256
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "0b255a4db5f2cf4a3a505a10a2748025f95b4cad",
+  "prompts": {},
+  "sessions": {
+    "s_56ce6ee05932e7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa097-f88a-7da2-b1e6-76f7788146d9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
