@@ -1,0 +1,26 @@
+omnigent/host/connect.py
+  s_56ce6ee05932e7::t_cbb7d3c7789ba5 360-364
+tests/host/test_connect.py
+  s_56ce6ee05932e7::t_cbb7d3c7789ba5 1522,1540
+omnigent/kimi_native.py
+  s_56ce6ee05932e7::t_cbb7d3c7789ba5 113-122,140-148
+tests/runner/test_kimi_native_terminal_launch.py
+  s_56ce6ee05932e7::t_647d1cf7d0b4c2 74-97
+  s_56ce6ee05932e7::t_53fca9aaf5d0e1 25-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "d362ddf467003e2bce65d420f26d638ba2f95999",
+  "prompts": {},
+  "sessions": {
+    "s_56ce6ee05932e7": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa097-f88a-7da2-b1e6-76f7788146d9",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
