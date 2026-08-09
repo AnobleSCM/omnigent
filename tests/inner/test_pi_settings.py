@@ -3,9 +3,42 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 from omnigent.inner.pi_settings import prepare_managed_pi_agent_dir
+
+
+def test_prepare_managed_pi_agent_dir_creates_private_paths(tmp_path: Path) -> None:
+    """A fresh managed directory and settings file are private under umask 000."""
+    probe = """
+import json
+import os
+import stat
+import sys
+from pathlib import Path
+from omnigent.inner.pi_settings import prepare_managed_pi_agent_dir
+
+root = Path(sys.argv[1])
+global_agent = root / "global-agent"
+global_agent.mkdir()
+managed = root / "managed"
+os.umask(0)
+prepare_managed_pi_agent_dir(managed, global_agent_dir=global_agent)
+print(json.dumps({
+    "dir": stat.S_IMODE(managed.stat().st_mode),
+    "file": stat.S_IMODE((managed / "settings.json").stat().st_mode),
+}))
+"""
+    completed = subprocess.run(
+        [sys.executable, "-c", probe, str(tmp_path)],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+    assert json.loads(completed.stdout.strip()) == {"dir": 0o700, "file": 0o600}
 
 
 def test_prepare_managed_pi_agent_dir_copies_settings_and_symlinks_npm(

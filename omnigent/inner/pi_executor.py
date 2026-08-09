@@ -1928,7 +1928,12 @@ class PiExecutor(Executor):
                 model=model,
             )
             models_path = os.path.join(tmp_dir, "models.json")
-            with open(models_path, "w") as f:
+            models_fd = os.open(
+                models_path,
+                os.O_WRONLY | os.O_CREAT | os.O_TRUNC,
+                0o600,
+            )
+            with os.fdopen(models_fd, "w", encoding="utf-8") as f:
                 json.dump(models_json, f)
             env["PI_CODING_AGENT_DIR"] = tmp_dir
             # Gateway mode relocates Pi's agent root — copy the user's global
@@ -1975,7 +1980,12 @@ class PiExecutor(Executor):
                 # unauthenticated; fail loud instead.
                 raise ValueError("tool_server_token is required when tool_server_port is set")
             ext_path = os.path.join(tmp_dir, "omnigent_tools.js")
-            with open(ext_path, "w") as f:
+            ext_fd = os.open(
+                ext_path,
+                os.O_WRONLY | os.O_CREAT | os.O_TRUNC,
+                0o600,
+            )
+            with os.fdopen(ext_fd, "w", encoding="utf-8") as f:
                 f.write(_generate_extension_js(tool_server_port, tools, tool_server_token))
             extra_args.extend(["--extension", ext_path])
             # Allowlist the bridged tool names. ``--no-tools`` (set in
