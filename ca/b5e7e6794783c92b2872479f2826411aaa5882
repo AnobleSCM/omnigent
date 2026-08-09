@@ -1,0 +1,39 @@
+tests/inner/test_pi_settings.py
+  s_0e6980dc8b03c4::t_46e4bcffb518fb 6-7,13-41
+  s_0e6980dc8b03c4::t_7d00b34a1d5c2f 42-43
+omnigent/inner/pi_settings.py
+  s_0e6980dc8b03c4::t_e53a242a8feade 15,106,109-112,114-115
+tests/inner/test_pi_executor.py
+  s_0e6980dc8b03c4::t_7a4a4fdc17f252 9,1712,1714-1715,1721-1724,1771,1778-1802,1812-1814
+  s_0e6980dc8b03c4::t_121ac8fbc0d21d 1748-1750
+  s_0e6980dc8b03c4::t_2b0b9371d1be0e 10-11,1709-1711,1713,1762-1764,1767-1770,1772-1777,1803-1811,1815-1844
+  s_0e6980dc8b03c4::t_8608a24f37ecf4 1716-1720,1725,1727-1737,1739-1747,1751-1753,1755-1761,1765-1766
+  s_0e6980dc8b03c4::t_053798385fc1e7 1726,1738,1754
+  s_f575ea17373710::t_eaab6d71c2011a 1845-1846
+omnigent/inner/pi_executor.py
+  s_0e6980dc8b03c4::t_64feaf7ae014ff 2153-2158,2205-2210
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.14",
+  "base_commit_sha": "cab5e7e6794783c92b2872479f2826411aaa5882",
+  "prompts": {},
+  "sessions": {
+    "s_0e6980dc8b03c4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fe504-8ca0-7a73-bebc-99aca062a8dc",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    },
+    "s_f575ea17373710": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fe489-cfc6-7592-ae72-3a4144792427",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": "AnobleSCM <andrewnoble1992@gmail.com>"
+    }
+  }
+}
