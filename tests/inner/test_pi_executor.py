@@ -6,6 +6,9 @@ import logging
 import os
 import shutil
 import socket
+import stat
+import subprocess
+import sys
 import tempfile
 import textwrap
 import unittest
@@ -1580,6 +1583,144 @@ class TestBuildEnvAndDir(unittest.TestCase):
             import shutil
 
             shutil.rmtree(config.tmp_dir, ignore_errors=True)
+
+
+def _probe_gateway_creation_modes(root: Path) -> dict[str, object]:
+    """Exercise gateway creation under umask 000 in an isolated process."""
+    global_agent = root / "global-agent"
+    global_agent.mkdir()
+    generated_root = root / "generated"
+    generated_root.mkdir()
+    real_mkdtemp = tempfile.mkdtemp
+    real_mkdir = os.mkdir
+    real_open = os.open
+    real_chmod = os.chmod
+    created_dir_modes: dict[str, int] = {}
+    created_file_modes: dict[str, int] = {}
+
+    def synthetic_mkdtemp(*, prefix: str) -> str:
+        return real_mkdtemp(prefix=prefix, dir=generated_root)
+
+    def tracking_mkdir(
+        path: str | os.PathLike[str],
+        mode: int = 0o777,
+        *,
+        dir_fd: int | None = None,
+    ) -> None:
+        if dir_fd is None:
+            real_mkdir(path, mode)
+        else:
+            real_mkdir(path, mode, dir_fd=dir_fd)
+        created_dir_modes[Path(path).name] = mode
+
+    def tracking_open(
+        path: str | os.PathLike[str],
+        flags: int,
+        mode: int = 0o777,
+        *,
+        dir_fd: int | None = None,
+    ) -> int:
+        if dir_fd is None:
+            fd = real_open(path, flags, mode)
+        else:
+            fd = real_open(path, flags, mode, dir_fd=dir_fd)
+        target = Path(path)
+        if flags & os.O_CREAT and target.is_relative_to(generated_root):
+            created_file_modes[target.name] = mode
+        return fd
+
+    def reject_posthoc_chmod(
+        path: str | os.PathLike[str],
+        mode: int,
+        *,
+        dir_fd: int | None = None,
+        follow_symlinks: bool = True,
+    ) -> None:
+        target = Path(path)
+        if target.is_relative_to(generated_root):
+            raise AssertionError(
+                f"gateway path repaired post-hoc with chmod({mode:o}): {target.name}"
+            )
+        real_chmod(path, mode, dir_fd=dir_fd, follow_symlinks=follow_symlinks)
+
+    def reject_posthoc_fchmod(fd: int, mode: int) -> None:
+        raise AssertionError(f"gateway file repaired post-hoc with fchmod({mode:o}) on fd {fd}")
+
+    os.umask(0)
+    with (
+        patch("omnigent.inner.pi_settings.DEFAULT_PI_AGENT_DIR", global_agent),
+        patch("omnigent.inner.pi_executor.tempfile.mkdtemp", synthetic_mkdtemp),
+        patch.object(os, "mkdir", tracking_mkdir),
+        patch.object(os, "open", tracking_open),
+        patch.object(os, "chmod", reject_posthoc_chmod),
+        patch.object(os, "fchmod", reject_posthoc_fchmod),
+        patch("omnigent.inner.pi_executor._find_pi_cli", return_value="/usr/bin/pi"),
+        patch(
+            "omnigent.inner.pi_executor._read_databrickscfg",
+            return_value=DatabricksCredentials(
+                host="https://synthetic.invalid",
+                token="synthetic-not-a-credential",
+            ),
+        ),
+    ):
+        executor = PiExecutor(gateway=True)
+        config = executor._build_env_and_dir(
+            [
+                {
+                    "name": "synthetic_tool",
+                    "description": "synthetic",
+                    "parameters": {"type": "object", "properties": {}},
+                }
+            ],
+            12345,
+            "synthetic-not-a-credential",
+            None,
+        )
+
+    try:
+        managed_dir = Path(config.tmp_dir)
+        return {
+            "created_dir_modes": created_dir_modes,
+            "created_file_modes": created_file_modes,
+            "managed_dir_mode": stat.S_IMODE(managed_dir.stat().st_mode),
+            "generated_file_modes": {
+                path.name: stat.S_IMODE(path.stat().st_mode)
+                for path in managed_dir.iterdir()
+                if path.is_file()
+            },
+        }
+    finally:
+        shutil.rmtree(config.tmp_dir, ignore_errors=True)
+
+
+def test_gateway_generated_files_are_owner_only_under_permissive_umask(
+    tmp_path: Path,
+) -> None:
+    """Gateway config is 0600 inside 0700, at creation under umask 000."""
+    probe = (
+        "import json, pathlib, runpy, sys; "
+        "ns = runpy.run_path(sys.argv[1]); "
+        "print(json.dumps(ns['_probe_gateway_creation_modes'](pathlib.Path(sys.argv[2]))))"
+    )
+    completed = subprocess.run(
+        [sys.executable, "-c", probe, __file__, str(tmp_path)],
+        check=False,
+        capture_output=True,
+        cwd=Path.cwd(),
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+    observed = json.loads(completed.stdout.strip().splitlines()[-1])
+
+    assert list(observed["created_dir_modes"].values()) == [0o700]
+    expected_file_modes = {
+        "models.json": 0o600,
+        "omnigent_tools.js": 0o600,
+        "settings.json": 0o600,
+    }
+    assert observed["created_file_modes"] == expected_file_modes
+    assert observed["managed_dir_mode"] == 0o700
+    assert observed["generated_file_modes"] == expected_file_modes
 
 
 def test_gateway_seeds_managed_settings_from_global_agent(

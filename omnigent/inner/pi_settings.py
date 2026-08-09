@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 from pathlib import Path
 from typing import Any
 
@@ -99,13 +100,16 @@ def prepare_managed_pi_agent_dir(
     if overlay:
         settings = _deep_merge_settings(settings, overlay)
 
-    managed_dir.mkdir(parents=True, exist_ok=True)
+    managed_dir.mkdir(mode=0o700, parents=True, exist_ok=True)
     settings_path = managed_dir / "settings.json"
     try:
-        settings_path.write_text(
-            json.dumps(settings, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
+        settings_fd = os.open(
+            settings_path,
+            os.O_WRONLY | os.O_CREAT | os.O_TRUNC,
+            0o600,
         )
+        with os.fdopen(settings_fd, "w", encoding="utf-8") as handle:
+            handle.write(json.dumps(settings, indent=2, sort_keys=True) + "\n")
     except OSError as exc:
         _logger.warning("Could not write managed Pi settings at %s: %s", settings_path, exc)
         return
