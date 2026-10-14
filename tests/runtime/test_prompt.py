@@ -118,3 +118,27 @@ def test_empty_framework_instructions_do_not_change_default() -> None:
 
 def test_framework_only_instructions_use_shared_composer() -> None:
     assert append_framework_instructions(None, ("Rename session",)) == "Rename session"
+
+
+def test_manual_skill_metadata_is_absent_from_model_instructions() -> None:
+    from omnigent.spec.types import SkillSpec
+
+    spec = cast(
+        AgentSpec,
+        SimpleNamespace(
+            instructions="Agent prompt",
+            skills=[
+                SkillSpec(
+                    "manual-guide",
+                    "Manual-only description",
+                    "Manual body",
+                    disable_model_invocation=True,
+                ),
+                SkillSpec("ordinary", "Ordinary description", "Ordinary body"),
+            ],
+        ),
+    )
+    result = build_instructions(spec, None, [{"function": {"name": "load_skill"}}])
+    assert "manual-guide" not in result
+    assert "Manual-only description" not in result
+    assert "- ordinary: Ordinary description" in result

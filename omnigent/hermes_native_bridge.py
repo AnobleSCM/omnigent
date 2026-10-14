@@ -300,6 +300,8 @@ def write_policy_hook_config(
     server_url: str,
     session_id: str,
     hermes_home: Path | None = None,
+    *,
+    manual_skills: frozenset[str] = frozenset(),
 ) -> Path:
     """Write per-session ``HERMES_HOME`` with Omnigent policy hook and MCP server.
 
@@ -326,6 +328,8 @@ def write_policy_hook_config(
     :param session_id: Omnigent session / conversation ID.
     :param hermes_home: Where to write the credential-bearing home. ``None``
         places it under ``bridge_dir``.
+    :param manual_skills: Skills omitted from native model discovery and loading.
+        Explicit Omnigent user commands supply their bodies separately.
     :returns: The HERMES_HOME path.
     """
     if hermes_home is None:
@@ -379,6 +383,10 @@ def write_policy_hook_config(
             ],
         },
     }
+
+    if manual_skills:
+        # User config imports inference keys only; this restriction is session-local.
+        config["skills"] = {"disabled": sorted(manual_skills)}
 
     config_path = hermes_home / "config.yaml"
     config_path.write_text(json.dumps(config, indent=2) + "\n")

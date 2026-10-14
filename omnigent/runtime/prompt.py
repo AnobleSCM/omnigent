@@ -80,9 +80,10 @@ def build_instructions(
     has_load_skill = any(
         schema.get("function", {}).get("name") == "load_skill" for schema in tool_schemas
     )
-    if spec.skills and has_load_skill:
+    model_skills = [skill for skill in spec.skills if not skill.disable_model_invocation]
+    if model_skills and has_load_skill:
         skill_lines = ["Available skills (use the load_skill tool to load one):"]
-        for skill in spec.skills:
+        for skill in model_skills:
             skill_lines.append(f"- {skill.name}: {skill.description}")
         parts.append("\n".join(skill_lines))
 

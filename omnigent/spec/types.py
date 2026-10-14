@@ -855,6 +855,8 @@ class SkillSpec:
         orchestration skills (frontmatter ``user-invocable: false``);
         such skills are excluded from the composer's ``/`` menu.
         Defaults to ``True`` (absent frontmatter field = invocable).
+    :param disable_model_invocation: Require explicit user activation; omit
+        this skill from model discovery and refuse automatic loading.
     """
 
     name: str
@@ -862,6 +864,7 @@ class SkillSpec:
     content: str
     skill_dir: Path | None = None
     user_invocable: bool = True
+    disable_model_invocation: bool = False
 
 
 @dataclass

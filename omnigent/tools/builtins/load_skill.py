@@ -86,7 +86,7 @@ class LoadSkillTool(Tool):
 
         :returns: A tool schema dict.
         """
-        skill_names = [s.name for s in self._skills]
+        skill_names = [s.name for s in self._skills if not s.disable_model_invocation]
         return {
             "type": "function",
             "function": {
@@ -135,8 +135,10 @@ class LoadSkillTool(Tool):
             return "Error: 'name' must be a string"
         skill = self._skills_by_name.get(skill_name)
         if skill is None:
-            available = list(self._skills_by_name.keys())
+            available = [s.name for s in self._skills if not s.disable_model_invocation]
             return f"Error: skill {skill_name!r} not found. Available skills: {available}"
+        if skill.disable_model_invocation:
+            return f"Error: skill {skill_name!r} requires explicit user invocation"
         resources = list_skill_resources(skill)
         return format_skill_content(skill, resources)
 

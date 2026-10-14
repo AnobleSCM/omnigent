@@ -176,6 +176,7 @@ def _build_hermes_args(
     model: str | None = None,
     session_id: str | None = None,
     skills_filter: str | list[str] | None = None,
+    manual_skills: frozenset[str] = frozenset(),
 ) -> list[str]:
     """
     Build the argument list for a Hermes subprocess call.
@@ -185,8 +186,9 @@ def _build_hermes_args(
     :param model: Optional model override (``-m`` flag).
     :param session_id: Optional session ID to resume (``--resume``).
     :param skills_filter: Skills to preload. A non-empty list preloads
-        those named skills (``-s a,b``); ``"none"`` skips preloaded
+        non-manual named skills (``-s a,b``); ``"none"`` skips preloaded
         skills (``--ignore-rules``); ``"all"``/``None``/empty adds nothing.
+    :param manual_skills: Names reserved for explicit user invocation.
     :returns: A list of CLI arguments.
     """
     args = [
@@ -203,7 +205,9 @@ def _build_hermes_args(
     if session_id:
         args.extend(["--resume", session_id])
     if isinstance(skills_filter, list) and skills_filter:
-        args.extend(["-s", ",".join(skills_filter)])
+        automatic = [name for name in skills_filter if name not in manual_skills]
+        if automatic:
+            args.extend(["-s", ",".join(automatic)])
     elif skills_filter == "none":
         args.append("--ignore-rules")
     return args
@@ -248,9 +252,9 @@ class HermesExecutor(Executor):
             ``None`` uses Hermes' configured default.
         :param os_env: OS environment spec for the subprocess.
             ``None`` defaults to ``caller_process + sandbox=none``.
-        :param skills_filter: Skills filter forwarded to Hermes.
+        :param skills_filter: Names to preload after excluding manual-only skills.
             ``None`` means "no filter" (Hermes' default).
-        :param bundle_dir: Agent bundle directory (reserved).
+        :param bundle_dir: Agent bundle directory used to identify manual skills.
         :param agent_name: Agent display name (reserved).
         """
         self._hermes_path = hermes_path or shutil.which("hermes") or "hermes"
@@ -263,6 +267,14 @@ class HermesExecutor(Executor):
         self._skills_filter = skills_filter
         self._bundle_dir = bundle_dir
         self._agent_name = agent_name
+        from omnigent.spec.parser import _discover_skills, discover_host_skills
+
+        # The menu filter does not constrain Hermes' independent native discovery.
+        skills = discover_host_skills(Path(self._cwd), "all")
+        if bundle_dir:
+            skills.extend(discover_host_skills(Path(bundle_dir), "all"))
+            skills.extend(_discover_skills(Path(bundle_dir) / "skills"))
+        self._manual_skills = frozenset(s.name for s in skills if s.disable_model_invocation)
         # Per-session state: maps session_key -> hermes_session_id
         self._session_map: dict[str, str] = {}
         # Per-session HERMES_HOME with policy hook config.
@@ -304,6 +316,7 @@ class HermesExecutor(Executor):
             server_url,
             conv_id,
             hermes_home=self._hermes_home,
+            manual_skills=self._manual_skills,
         )
         _logger.debug("Hermes per-session home: %s", self._hermes_home)
 
@@ -372,6 +385,7 @@ class HermesExecutor(Executor):
             model=model,
             session_id=hermes_sid,
             skills_filter=self._skills_filter,
+            manual_skills=self._manual_skills,
         )
 
         # Build subprocess env with per-session HERMES_HOME for policy hooks.

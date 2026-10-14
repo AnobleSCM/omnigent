@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -119,16 +120,22 @@ class ReadSkillFileTool(Tool):
 
         skill = self._skills_by_name.get(skill_name)
         if skill is None:
-            available = list(self._skills_by_name.keys())
+            available = [
+                s.name for s in self._skills_by_name.values() if not s.disable_model_invocation
+            ]
             return f"Error: skill {skill_name!r} not found. Available skills: {available}"
         if skill.skill_dir is None:
             return "Error: skill has no directory on disk (loaded from in-memory config)."
-        return _read_file_safely(skill.skill_dir, rel_path)
+        return _read_file_safely(
+            skill.skill_dir, rel_path, deny_skill_body=skill.disable_model_invocation
+        )
 
 
 def _read_file_safely(
     skill_dir: Path,
     rel_path: str,
+    *,
+    deny_skill_body: bool = False,
 ) -> str:
     """
     Safely read a file relative to a skill directory.
@@ -141,6 +148,8 @@ def _read_file_safely(
         e.g. ``Path("/agents/code-review")``.
     :param rel_path: Relative path within the skill
         directory, e.g. ``"references/style-guide.md"``.
+    :param deny_skill_body: Refuse the instruction file, including aliases,
+        while retaining access to supporting files for explicit invocations.
     :returns: The file contents as a string, or an error
         message if the path is invalid or the file does
         not exist.
@@ -155,4 +164,9 @@ def _read_file_safely(
     if not resolved.is_file():
         return f"Error: file not found: {rel_path}"
 
+    if deny_skill_body:
+        with resolved.open() as resource:
+            if os.path.samestat(os.fstat(resource.fileno()), (skill_dir / "SKILL.md").stat()):
+                return "Error: skill instructions require explicit user invocation"
+            return resource.read()
     return resolved.read_text()

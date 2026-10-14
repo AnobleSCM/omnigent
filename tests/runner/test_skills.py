@@ -39,6 +39,33 @@ def _skill_md(name: str, description: str) -> str:
     return f"---\nname: {name}\ndescription: {description}\n---\n\nbody for {name}\n"
 
 
+@pytest.mark.asyncio
+async def test_manual_skill_remains_in_user_menu_and_explicit_resolution(tmp_path: Path) -> None:
+    package = tmp_path / ".agents" / "skills" / "manual-guide"
+    package.mkdir(parents=True)
+    (package / "SKILL.md").write_text(
+        "---\nname: manual-guide\ndescription: User-selected guide\n"
+        "disable-model-invocation: true\n---\nExact manual body.\n"
+    )
+    (package / "references").mkdir()
+    (package / "references" / "guide.md").write_text("Supporting file.")
+    app = _make_app(tmp_path, [], ["manual-guide"], workspace=tmp_path, harness="hermes")
+    async for client in _client(app):
+        menu = await client.get("/v1/sessions/manual-session/skills")
+        selected = await client.post(
+            "/v1/sessions/manual-session/skills/resolve",
+            json={"name": "manual-guide", "arguments": "literal $value {{args}}"},
+        )
+    assert menu.status_code == 200
+    assert [skill["name"] for skill in menu.json()["skills"]] == ["manual-guide"]
+    assert selected.status_code == 200
+    text = selected.json()["meta_text"]
+    assert "Exact manual body." in text
+    assert f"<path>{package / 'SKILL.md'}</path>" in text
+    assert "references/guide.md" in text
+    assert "literal $value {{args}}" in text
+
+
 class _ExecutorStub:
     """Minimal ``ExecutorSpec`` stand-in exposing ``harness_kind``."""
 

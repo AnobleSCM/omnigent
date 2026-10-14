@@ -2313,6 +2313,9 @@ def _parse_skill(skill_md: Path) -> SkillSpec:
         content=content.strip(),
         skill_dir=skill_md.parent,
         user_invocable=user_invocable,
+        disable_model_invocation=not _falsey_flag(
+            frontmatter.get("disable-model-invocation", False)
+        ),
     )
 
 
